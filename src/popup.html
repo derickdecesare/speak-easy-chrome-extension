@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Speak Easy</title>
+    <style>
+      body {
+        width: 300px;
+        padding: 10px;
+        font-family: Arial, sans-serif;
+      }
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      h1 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+      label {
+        font-size: 14px;
+      }
+      input,
+      select {
+        padding: 5px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+      }
+      button {
+        padding: 8px 12px;
+        background-color: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: #3367d6;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Speak Easy</h1>
+      <p>Highlight text on any webpage to hear its pronunciation.</p>
+
+      <div class="input-group">
+        <label for="apiKey">11labs API Key:</label>
+        <input
+          type="password"
+          id="apiKey"
+          placeholder="Enter your 11labs API key"
+        />
+      </div>
+
+      <div class="input-group">
+        <label for="voiceSelect">Voice:</label>
+        <select id="voiceSelect">
+          <option value="vqoh9orw2tmOS3mY7D2p">Sofi (Spanish)</option>
+          <option value="9oPKasc15pfAbMr7N6Gs">Valeria</option>
+          <option value="Nh2zY9kknu6z4pZy6FhD">David Martin</option>
+          <option value="a548RYrVyJWVgMbn8sCH">Shau</option>
+        </select>
+      </div>
+
+      <div class="input-group">
+        <label for="modelSelect">Model:</label>
+        <select id="modelSelect">
+          <option value="eleven_flash_v2_5">Flash (Faster)</option>
+          <option value="eleven_multilingual_v2">
+            Multilingual (Higher Quality)
+          </option>
+          <option value="eleven_turbo_v2_5">Turbo</option>
+        </select>
+      </div>
+
+      <button id="saveButton">Save</button>
+      <p class="status" id="status"></p>
+    </div>
+    <script src="popup.js"></script>
+  </body>
+</html>
