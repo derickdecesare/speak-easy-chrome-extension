@@ -75,6 +75,10 @@ You can get an API key from [Eleven Labs](https://elevenlabs.io/)
 - Chrome browser
 - Eleven Labs API key
 
+## Build Command
+
+rm -rf dist && npm run build
+
 ## License
 
 MIT

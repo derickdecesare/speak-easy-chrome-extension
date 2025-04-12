@@ -200,6 +200,7 @@ function initSpeakEasy() {
   // Function to speak the current selection
   function speakCurrentSelection() {
     const selection = window.getSelection()?.toString();
+    console.log("Selection:", selection);
     if (selection && selection.length > 0) {
       // Remove speaking log
       speakText(selection);
@@ -256,6 +257,9 @@ function initSpeakEasy() {
     overrideModelId?: string
   ) {
     try {
+      // Filter text before processing
+      text = filterText(text);
+
       // Remove API key log
       // Get API key from storage
       const settingsResponse = await new Promise<{
@@ -324,6 +328,34 @@ function initSpeakEasy() {
       console.error("Error speaking text:", error);
       alert("Error speaking text. Please check your API key and try again.");
     }
+  }
+
+  // Function to filter text before sending to the API
+  function filterText(text: string): string {
+    // More comprehensive URL regex that catches domains with or without www/http
+    const urlRegex =
+      /(https?:\/\/[^\s]+)|([a-zA-Z0-9]+([\-\.]{1}[a-zA-Z0-9]+)*\.[a-zA-Z]{2,63}(:[0-9]{1,5})?(\/[^\s]*)?)/gi;
+
+    // Filter mathematical symbols and special characters that might be difficult to pronounce
+    const mathSymbolsRegex =
+      /[∀∁∂∃∄∅∆∇∈∉∊∋∌∍∎∏∐∑−∓∔∕∖∗∘∙√∛∜∝∞∟∠∡∢∣∤∥∦∧∨∩∪∫∬∭∮∯∰∱∲∳∴∵∶∷∸∹∺∻∼∽∾∿≀≁≂≃≄≅≆≇≈≉≊≋≌≍≎≏≐≑≒≓≔≕≖≗≘≙≚≛≜≝≞≟≠≡≢≣≤≥≦≧≨≩≪≫≬≭≮≯≰≱≲≳≴≵≶≷≸≹≺≻≼≽≾≿⊀⊁⊂⊃⊄⊅⊆⊇⊈⊉⊊⊋⊌⊍⊎⊏⊐⊑⊒⊓⊔⊕⊖⊗⊘⊙⊚⊛⊜⊝⊞⊟⊠⊡⊢⊣⊤⊥⊦⊧⊨⊩⊪⊫⊬⊭⊮⊯⊰⊱⊲⊳⊴⊵⊶⊷⊸⊹⊺⊻⊼⊽⊾⊿⋀⋁⋂⋃⋄⋅⋆⋇⋈⋉⋊⋋⋌⋍⋎⋏⋐⋑⋒⋓⋔⋕⋖⋗⋘⋙⋚⋛⋜⋝⋞⋟⋠⋡⋢⋣⋤⋥⋦⋧⋨⋩⋪⋫⋬⋭⋮⋯⋰⋱]/g;
+
+    const originalText = text;
+
+    // Apply URL filtering
+    let filteredText = text.replace(urlRegex, "");
+
+    // Apply math symbols filtering
+    filteredText = filteredText.replace(mathSymbolsRegex, "");
+
+    // Only log if something was actually filtered
+    if (originalText !== filteredText) {
+      console.log("Contenido filtrado detectado:");
+      console.log("Texto original:", originalText);
+      console.log("Texto filtrado:", filteredText);
+    }
+
+    return filteredText;
   }
 
   // Export debugging functions
